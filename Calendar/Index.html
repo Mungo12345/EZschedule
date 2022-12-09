@@ -1,0 +1,548 @@
+<! DOCTYPE html>  
+<html lang = "en">  
+<head>  
+  <meta charset = "UTF-8">  
+  <meta name = "viewport" content = "width=device-width, initial-scale=1.0">  
+  <meta http-equiv = "X-UA-Compatible" content = "ie=edge">  
+  <title> Time-Critical HomePage  
+ </title>
+ <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/footers/">
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+ <script src="https://cdn.userfront.com/core.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+    crossorigin="anonymous"/>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"> </script>  
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"> </script>   
+<style>  
+
+body{
+    font-family: 'Franklin Gothic Medium';
+    background-color:#c0c7d2;
+}
+
+a {  
+    outline: none;  
+    color: #389dc1;  
+}  
+a:visited {  
+    outline: none;  
+    color: #389dc1;  
+}  
+a:hover {  
+    text-decoration: none;  
+}  
+section, footer, header, aside {  
+    display: block;  
+}  
+#clock {  
+    width: 370px;  
+    padding: 40px;  
+    margin: 100px auto 60px;  
+    position: relative;  
+}  
+#clock:after {  
+    content: ' ';  
+    position: absolute;  
+    width: 400px;  
+    height: 20px;  
+    border-radius: 100%;  
+    left: 50%;  
+    margin-left: -200px;  
+    bottom: 2px;  
+    z-index: -1;  
+}  
+#clock .display {  
+    text-align: center;  
+    padding: 40px 20px 20px;  
+    border-radius: 6px;  
+    position: relative;  
+    height: 54px;  
+}  
+#clock.light {  
+    background-color: #f3f3f3;  
+    color: #4c668d;  
+}  
+
+#clock.light .digits div span {  
+    background-color: #486b9c;  
+    border-color: #272e38;    
+}  
+#clock.light .digits div.dots:before {  
+    background-color: #0f3c7a;  
+}  
+
+#clock.light .alarm {  
+    background:url('../img/alarm_light.jpg');  
+}  
+#clock.light .display {  
+    background-color: #dddddd;  
+    box-shadow: 0 1px 1px rgba(61, 62, 123, 0.08) inset, 0 1px 1px #9a94cb;  
+}  
+
+#clock .digits div {  
+    text-align: left;  
+    position: relative;  
+    width: 28px;  
+    height: 50px;  
+    display: inline-block;  
+    margin: 0 4px;  
+}  
+#clock .digits div span {  
+    opacity: 0;  
+    position: absolute;  
+    -webkit-transition: 0.25s;  
+    -moz-transition: 0.25s;  
+    transition: 0.25s;  
+}  
+#clock .digits div span:before {  
+    content: ' ';  
+    position: absolute;  
+    width: 0;  
+    height: 0;  
+    border: 5px solid transparent;  
+}  
+
+  
+#clock .digits .d1 {              
+height: 5px;  
+width: 16px;  
+top: 0;  
+left: 6px; }  
+#clock .digits .d1:before {   
+border-width: 0 5px 5px 0;  
+border-right-color: inherit;  
+left: -5px; }  
+
+#clock .digits .d2 {              
+height: 5px;  
+width: 16px;  
+top: 24px;  
+left: 6px; }  
+#clock .digits .d2:before {   
+border-width: 3px 4px 2px;  
+border-right-color: inherit;  
+left: -8px; }  
+
+#clock .digits .d3 {              
+height: 5px;  
+width: 16px;  
+top: 48px;   
+left: 6px; }  
+#clock .digits .d3:before {   
+border-width: 5px 5px 0 0;  
+border-right-color: inherit;  
+left: -5px; }  
+
+#clock .digits .d4 {              
+width: 5px;  
+height: 14px;   
+top: 7px; left: 0;   
+}  
+#clock .digits .d4:before {   
+border-width: 0 5px 5px 0;  
+border-bottom-color: inherit;  
+top: -5px; }  
+
+#clock .digits .d5 {              
+width: 5px;  
+height: 14px;   
+top: 7px;   
+right: 0; }  
+#clock .digits .d5:before {   
+border-width: 0 0 5px 5px;  
+border-bottom-color: inherit;   
+top: -5px; }  
+
+#clock .digits .d6 {              
+width: 5px;  
+height: 14px;  
+top: 32px;   
+left: 0; }  
+#clock .digits .d6:before {   
+border-width: 0 5px 5px 0;  
+border-bottom-color: inherit;  
+top: -5px; }  
+
+#clock .digits .d7 {              
+width: 5px;  
+height: 14px;   
+top: 32px;  
+right: 0; }  
+#clock .digits .d7:before {   
+border-width: 0 0 5px 5px;  
+border-bottom-color: inherit;   
+top: -5px; }  
+
+#clock .digits div.one .d5 {  
+    opacity: 1;  
+}  
+#clock .digits div.one .d7 {  
+    opacity: 1;  
+}  
+#clock .digits div.two .d1 {  
+    opacity: 1;  
+}  
+#clock .digits div.two .d5 {  
+    opacity: 1;  
+}  
+#clock .digits div.two .d2 {  
+    opacity: 1;  
+}  
+#clock .digits div.two .d6 {  
+    opacity: 1;  
+}  
+#clock .digits div.two .d3 {  
+    opacity: 1;  
+}  
+#clock .digits div.three .d1,  
+#clock .digits div.three .d5,  
+#clock .digits div.three .d2,  
+#clock .digits div.three .d7,  
+#clock .digits div.three .d3 {  
+    opacity: 1;  
+}  
+#clock .digits div.four .d5,  
+#clock .digits div.four .d2,  
+#clock .digits div.four .d4,  
+#clock .digits div.four .d7 {  
+    opacity: 1;  
+}  
+#clock .digits div.five .d1,  
+#clock .digits div.five .d2,  
+#clock .digits div.five .d4,  
+#clock .digits div.five .d3,  
+#clock .digits div.five .d7 {  
+    opacity: 1;  
+}  
+#clock .digits div.six .d1,  
+#clock .digits div.six .d2,  
+#clock .digits div.six .d4,  
+#clock .digits div.six .d3,  
+#clock .digits div.six .d6,  
+#clock .digits div.six .d7 {  
+    opacity: 1;  
+}  
+  
+  
+  
+#clock .digits div.seven .d1,  
+#clock .digits div.seven .d5,  
+#clock .digits div.seven .d7 {  
+    opacity: 1;  
+}  
+#clock .digits div.eight .d1,  
+#clock .digits div.eight .d2,  
+#clock .digits div.eight .d3,  
+#clock .digits div.eight .d4,  
+#clock .digits div.eight .d5,  
+#clock .digits div.eight .d6,  
+#clock .digits div.eight .d7 {  
+    opacity: 1;  
+}  
+#clock .digits div.nine .d1,  
+#clock .digits div.nine .d2,  
+#clock .digits div.nine .d3,  
+#clock .digits div.nine .d4,  
+#clock .digits div.nine .d5,  
+#clock .digits div.nine .d7 {  
+    opacity: 1;  
+}  
+#clock .digits div.zero .d1,  
+#clock .digits div.zero .d3 {  
+    opacity: 1;  
+}  
+#clock .digits div.zero .d4 {  
+    opacity: 1;  
+}  
+#clock .digits div.zero .d5 {  
+    opacity: 1;  
+}  
+#clock .digits div.zero .d6 {  
+    opacity: 1;  
+}  
+#clock .digits div.zero .d7 {  
+    opacity: 1;  
+}  
+#clock .digits div.dots {  
+    width: 5px;  
+}  
+#clock .digits div.dots:before {  
+    width: 5px;  
+    height: 5px;  
+    content: ' ';  
+    position: absolute;  
+    left: 0;  
+    top: 14px;  
+}  
+ 
+#clock .alarm {  
+    width: 16px;  
+    height: 16px;  
+    bottom: 20px;  
+    background: url('../img/alarm_light.jpg');  
+    position: absolute;  
+    opacity: 0.2;  
+}  
+#clock .alarm.active {  
+    opacity: 1;  
+}  
+#clock .weekdays {  
+    font-size: 12px;  
+    position: absolute;  
+    width: 100%;  
+    top: 10px;  
+    left: 0;  
+    text-align: center;  
+}  
+#clock .weekdays span {  
+    opacity: 0.2;  
+    padding: 0 10px;  
+}  
+#clock .weekdays span.active {  
+    opacity: 1;  
+}  
+#clock .ampm {  
+    position: absolute;  
+    bottom: 20px;  
+    right: 20px;  
+    font-size: 12px;  
+}  
+
+.button-holder {  
+    text-align: center;  
+    padding-bottom: 100px;  
+}  
+a.button {  
+    background-color: #413857;  
+    background-image: -webkit-linear-gradient(top, #413857, #413857);  
+    background-image: -moz-linear-gradient(top, #413857, #413857);  
+    background-image: linear-gradient(top, #413857, #413857);  
+    border: 1px solid #eb9ba7;  
+    border-radius: 2px;  
+    box-shadow: 0 2px 2px #ccc;  
+    color: #fff;  
+    text-decoration: none !important;  
+    padding: 15px 20px;  
+    display: inline-block;  
+    cursor: pointer;  
+}  
+a.button:hover {  
+    opacity: 0.9;  
+}  
+
+
+
+b.button {  
+    background-color: #413857;  
+    background-image: -webkit-linear-gradient(top, #413857, #413857);  
+    background-image: -moz-linear-gradient(top, #413857, #413857);  
+    background-image: linear-gradient(top, #413857, #413857);  
+    border: 1px solid #eb9ba7;  
+    border-radius: 2px;  
+    box-shadow: 0 2px 2px #ccc;  
+    color: #fff;  
+    text-decoration: none !important;  
+    padding: 15px 20px;  
+    display: inline-block;  
+    cursor: pointer;  
+}  
+b.button:hover {  
+    opacity: 0.9;  
+}
+.bd-placeholder-img {
+              font-size: 1.125rem;
+              text-anchor: middle;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              user-select: none;
+            }
+      
+            @media (min-width: 768px) {
+              .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+              }
+            }
+      
+            .b-example-divider {
+              height: 3rem;
+              background-color: rgba(0, 0, 0, .1);
+              border: solid rgba(0, 0, 0, .15);
+              border-width: 1px 0;
+              box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+            }
+      
+            .b-example-vr {
+              flex-shrink: 0;
+              width: 1.5rem;
+              height: 100vh;
+            }
+      
+            .bi {
+              vertical-align: -.125em;
+              fill: currentColor;
+            }
+      
+            .nav-scroller {
+              position: relative;
+              z-index: 2;
+              height: 2.75rem;
+              overflow-y: hidden;
+            }
+      
+            .nav-scroller .nav {
+              display: flex;
+              flex-wrap: nowrap;
+              padding-bottom: 1rem;
+              margin-top: -1px;
+              overflow-x: auto;
+              text-align: center;
+              white-space: nowrap;
+              -webkit-overflow-scrolling: touch;
+            }
+          </style>  
+<body>  
+<h1 style="text-align: center;"> TIME-CRITICAL </h1>  
+<br>
+<h2 style="text-align: center;"> Time-Critical is a tool to help with schedule management for class,work, or even personal use. </h2>  
+<div id = "clock" class = "light">  
+            <div class = "display">  
+                <div class = "weekdays"> </div>  
+                <div class = "ampm"> </div>  
+                <div class = "alarm"> </div>  
+                <div class = "digits"> </div>  
+            </div>  
+        </div>  
+        <div class = "button-holder">  
+            <a href ="Login.html"class = "button"> LOGIN</a> 
+            <a href = "Calendar.html"class = "button"> Make a Schedule</a> 
+        </div> 
+
+        <style>
+            .bd-placeholder-img {
+              font-size: 1.125rem;
+              text-anchor: middle;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              user-select: none;
+            }
+      
+            @media (min-width: 768px) {
+              .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+              }
+            }
+      
+            .b-example-divider {
+              height: 3rem;
+              background-color: rgba(0, 0, 0, .1);
+              border: solid rgba(0, 0, 0, .15);
+              border-width: 1px 0;
+              box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+            }
+      
+            .b-example-vr {
+              flex-shrink: 0;
+              width: 1.5rem;
+              height: 100vh;
+            }
+      
+            .bi {
+              vertical-align: -.125em;
+              fill: currentColor;
+            }
+      
+            .nav-scroller {
+              position: relative;
+              z-index: 2;
+              height: 2.75rem;
+              overflow-y: hidden;
+            }
+      
+            .nav-scroller .nav {
+              display: flex;
+              flex-wrap: nowrap;
+              padding-bottom: 1rem;
+              margin-top: -1px;
+              overflow-x: auto;
+              text-align: center;
+              white-space: nowrap;
+              -webkit-overflow-scrolling: touch;
+            }
+          </style>
+      
+          
+
+      
+      <div class="b-example-divider"></div>
+      
+      <div class="container">
+        <footer class="py-3 my-4">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Subscription</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+          </ul>
+          <p class="text-center text-muted">&copy; 2022 Time-Critical, Inc</p>
+        </footer>
+      </div>
+<script>  
+$(function() {  
+    var clock = $('#clock'),  
+        alarm = clock.find('.alarm'),  
+        ampm = clock.find('.ampm');  
+        var digit_to_name = 'zero one two three four five six seven eight nine'.split(' ');  
+    var digits = {};  
+    var positions = [  
+        'h1', 'h2', ':', 'm1', 'm2', ':', 's1', 's2'  
+    ];  
+    var digit_holder = clock.find('.digits');  
+    $.each(positions, function(){  
+        if(this == ':') {  
+            digit_holder.append('<div class="dots">');  
+        }  
+        else {  
+            var pos = $('<div>');  
+            for(var i=1; i<8; i++) {  
+                pos.append('<span class="d' + i + '">');  
+            }  
+            digits[this] = pos;  
+            digit_holder.append(pos);  
+        }  
+    });  
+    var weekday_names = 'MON TUE WED THU FRI SAT SUN'.split(' '),  
+        weekday_holder = clock.find('.weekdays');  
+    $.each(weekday_names, function() {  
+        weekday_holder.append('<span>' + this + '</span>');  
+    });  
+    var weekdays = clock.find('.weekdays span');  
+    (function update_time() {  
+        var now = moment().format("hhmmssdA");  
+        digits.h1.attr('class', digit_to_name[now[0]]);  
+        digits.h2.attr('class', digit_to_name[now[1]]);  
+        digits.m1.attr('class', digit_to_name[now[2]]);  
+        digits.m2.attr('class', digit_to_name[now[3]]);  
+        digits.s1.attr('class', digit_to_name[now[4]]);  
+        digits.s2.attr('class', digit_to_name[now[5]]);  
+         var dow = now[6];  
+        dow--;  
+        if(dow < 0) {  
+            dow = 6;  
+        }    weekdays.removeClass('active').eq(dow).addClass('active');  
+        ampm.text(now[7]+now[8]);  
+        setTimeout(update_time, 1000);  
+    })();  
+    $('a.button').click(function() {  
+    });
+
+       $('b.button').click(function() {  
+    });
+});  
+
+
+</script>  
+</body>  
+</html>  
